@@ -8,9 +8,40 @@
 
 <body>
 
-<!-- odwołujemy się tu do ejs i wstawiamy zmienną  -->
+  <!-- odwołujemy się tu do ejs i wstawiamy zmienną  -->
+  <!-- <h1>It's a <%= kindOfDay %>!</h1> -->
+
+  <!-- Scriptlet: Inny tag, umożliwiający nam małe control flow <% %>, wszystkie części scriptu muszą być w nim i działa po kolei -->
+  <!-- Ale generalnie nie jest to polecane, lepiej logikę robić na serwerze -->
+
+
+  <!-- Tu jakaś zabawa z controlflow -->
+
+  <!-- <% if (kindOfDay === "Saturday" || kindOfDay === "Sunday") { %>
+  <h1 style="color:purple"><%= kindOfDay %> ToDo List</h1>
+<% } else { %>
+  <h1 style="color:blue"><%= kindOfDay %> ToDo List</h1>
+<% } %> -->
 
   <h1>It's a <%= kindOfDay %>!</h1>
+
+  <ul>
+    <li>Buy Food</li>
+    <li>Cook Food</li>
+    <li>Eat Food</li>
+
+<% for (var i = 0; i < newListItem.length; i++) { %>
+<% var itmo = newListItem[i] %>
+  <li><%= itmo %></li>
+<% } %>
+
+  </ul>
+
+  <form action="/" method="post">
+    <input type="text" name="next_item">
+    <button type="submit" name="button">Add</button>
+  </form>
+
 
 </body>
 

@@ -7,7 +7,12 @@ const app = express();
 
 //robienie templejtów za pomocą EJS, app możemy używać dopiero po stworzeniu const app
 
+//pusta zmienna dla renderowania nowych punktów listy
+var items = [];
+
 app.set('view engine', 'ejs');
+
+app.use(express.urlencoded());
 
 //żeby renderować templejty w ejs trzeba stworzyć folder views(z dokumentacji)
 
@@ -23,33 +28,26 @@ app.get("/", function(req, res) {
   var currentDay = today.getDay();
   var day = "";
 
-  switch (currentDay) {
-    case 0:
-      day = "Sunday";
-      break;
-    case 1:
-      day = "Monday";
-      break;
-    case 2:
-      day = "Tuesday";
-      break;
-    case 3:
-      day = "Wendsday";
-      break;
-    case 4:
-      day = "Thursday";
-      break;
-    case 5:
-      day = "Friday";
-      break;
-    case 6:
-      day = "Saturday";
-      break;
-    default:
-    console.log("Error: somehow current day is equal to: " + currentDay);
-  }
-  //o i tu renderujemy templejt do którego dokładamy zmienną day w zależności od tego, jaki mamy dzień tygodnia
-  res.render("list", {kindOfDay: day});
+//robimy opcje do toLocaleDateString metody, by przedtawić datę w porządanym formacie
+var options = {
+  weekday: "long",
+  day: "numeric",
+  month: "long"
+};
+
+//i tu metoda do przedstawiania daty w określonym formacie
+var day = today.toLocaleDateString("en-US", options);
+
+//o i tu renderujemy templejt do którego dokładamy zmienną day w zależności od tego, jaki mamy dzień tygodnia
+//przekazujemy też zmienną do renderowania kolejnych pozycji listy
+  res.render("list", {kindOfDay: day, newListItem: items});
+});
+
+//zbieramy kolejną pozycję za pomocą metody post odwołującej sie do formsa w htmlu
+app.post("/", function(req, res) {
+  const item = req.body.next_item;
+  items.push(item);
+  res.redirect("/");
 });
 
 app.listen(3000, function() {
