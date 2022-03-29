@@ -8,9 +8,13 @@ const app = express();
 //robienie templejtów za pomocą EJS, app możemy używać dopiero po stworzeniu const app
 
 //pusta zmienna dla renderowania nowych punktów listy
-var items = ["Buy Food", "Cook Food", "Eat Food"];
+//const daje możliwość używania metody push
+const items = ["Buy Food", "Cook Food", "Eat Food"];
 //pusta lista dla podstrony work
-var workItems =[];
+const workItems =[];
+
+//Nauka przekazywania danych pomiędzy plikami za pomocą noda i ejs
+const date = require(__dirname + "/date.js");
 
 app.set('view engine', 'ejs');
 
@@ -28,19 +32,9 @@ app.use(express.static("public"));
 
 
 app.get("/", function(req, res) {
-  var today = new Date();
-  var currentDay = today.getDay();
-  var day = "";
 
-//robimy opcje do toLocaleDateString metody, by przedtawić datę w porządanym formacie
-var options = {
-  weekday: "long",
-  day: "numeric",
-  month: "long"
-};
-
-//i tu metoda do przedstawiania daty w określonym formacie
-var day = today.toLocaleDateString("en-US", options);
+// odwołujemy się do stworzonego modułu i do konkretnej funkcji wewnątrz niego
+const day = date.getDate();
 
 //o i tu renderujemy templejt do którego dokładamy zmienną day w zależności od tego, jaki mamy dzień tygodnia
 //przekazujemy też zmienną do renderowania kolejnych pozycji listy
