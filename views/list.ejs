@@ -1,48 +1,41 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
+<%- include("header") -%>
 
-<head>
-  <meta charset="utf-8">
-  <title>To Do List</title>
-</head>
+<!-- Tu jest EJS  layout dla nagłówka -->
+  <div class="box" id="heading">
+    <h1>It's a <%= listTitle %>!</h1>
+  </div>
 
-<body>
+  <div class="box">
+    <% for (var i = 0; i < newListItems.length; i++) { %>
+    <div class="item">
+      <input type="checkbox">
+      <p><%= newListItems[i] %></p>
+    </div>
+    <% } %>
 
-  <!-- odwołujemy się tu do ejs i wstawiamy zmienną  -->
-  <!-- <h1>It's a <%= kindOfDay %>!</h1> -->
+    <form class="item" action="/" method="post">
+      <input type="text" name="next_item" placeholder="New Item" autocomplete="off">
+      <button type="submit" name="list" value= <%= listTitle %>>+</button>
+    </form>
+  </div>
 
-  <!-- Scriptlet: Inny tag, umożliwiający nam małe control flow <% %>, wszystkie części scriptu muszą być w nim i działa po kolei -->
-  <!-- Ale generalnie nie jest to polecane, lepiej logikę robić na serwerze -->
+<!-- Tu jest EJS  layout dla stopki -->
+<%- include("footer") -%>
 
-
-  <!-- Tu jakaś zabawa z controlflow -->
-
-  <!-- <% if (kindOfDay === "Saturday" || kindOfDay === "Sunday") { %>
-  <h1 style="color:purple"><%= kindOfDay %> ToDo List</h1>
-<% } else { %>
-  <h1 style="color:blue"><%= kindOfDay %> ToDo List</h1>
-<% } %> -->
-
-  <h1>It's a <%= kindOfDay %>!</h1>
-
-  <ul>
-    <li>Buy Food</li>
-    <li>Cook Food</li>
-    <li>Eat Food</li>
-
-<% for (var i = 0; i < newListItem.length; i++) { %>
-<% var itmo = newListItem[i] %>
-  <li><%= itmo %></li>
-<% } %>
-
-  </ul>
-
-  <form action="/" method="post">
-    <input type="text" name="next_item">
-    <button type="submit" name="button">Add</button>
-  </form>
+<!-- Jakieś komentarze i próby z wcześniejszych lekcji: -->
 
 
-</body>
+    <!-- odwołujemy się tu do ejs i wstawiamy zmienną  -->
+    <!-- <h1>It's a <%= listTitle %>!</h1> -->
 
-</html>
+    <!-- Scriptlet: Inny tag, umożliwiający nam małe control flow <% %>, wszystkie części scriptu muszą być w nim i działa po kolei -->
+    <!-- Ale generalnie nie jest to polecane, lepiej logikę robić na serwerze -->
+
+
+    <!-- Tu jakaś zabawa z controlflow -->
+
+    <!-- <% if (listTitle === "Saturday" || listTitle === "Sunday") { %>
+    <h1 style="color:purple"><%= listTitle %> ToDo List</h1>
+  <% } else { %>
+    <h1 style="color:blue"><%= listTitle %> ToDo List</h1>
+  <% } %> -->
